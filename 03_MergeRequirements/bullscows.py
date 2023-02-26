@@ -4,16 +4,17 @@ import urllib.request
 import os.path
 import argparse
 import cowsay
+from io import StringIO
 
 
 def ask(prompt: str, valid: list[str] = None) -> str:
     print(cowsay.cowsay(prompt, 
-                        cow=choice(cowsay.list_cows())))
+                        cowfile=cow))
     word = input()
     if (valid):
         while (word not in valid):
             print(cowsay.cowsay(prompt, 
-                                cow=choice(cowsay.list_cows())))
+                                cowfile=cow))
             word = input()
     return word
 
@@ -58,6 +59,25 @@ parser.add_argument('len',
                     help='Indicates the length of the words used.',
                     nargs='?')
 
+
+cow = cowsay.read_dot_cow(StringIO("""
+$the_cow = <<EOC;
+         $thoughts
+          $thoughts
+           .-. \_/ .-.
+           \.-\/=\/.-/
+        '-./___|=|___\.-'
+       .--| \|/`"`\|/ |--.
+      (((_)\  .---.  /(_)))
+       `\ \_`-.   .-'_/ /`_
+         '.__       __.'(_))
+             /     \     //
+            |       |__.'/
+            \       /--'`
+        .--,-' .--. '----.
+       '----`--'  '--`----'
+EOC
+"""))
 
 if __name__ == '__main__':
     args = parser.parse_args()
