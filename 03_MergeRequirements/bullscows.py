@@ -1,20 +1,25 @@
 from typing import Tuple
-from random import randrange
-import sys
+from random import randrange, choice
 import urllib.request
 import os.path
 import argparse
+import cowsay
 
 
 def ask(prompt: str, valid: list[str] = None) -> str:
-    word = input(prompt)
+    print(cowsay.cowsay(prompt, 
+                        cow=choice(cowsay.list_cows())))
+    word = input()
     if (valid):
         while (word not in valid):
-            word = input(prompt)
+            print(cowsay.cowsay(prompt, 
+                                cow=choice(cowsay.list_cows())))
+            word = input()
     return word
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(format_string.format(bulls, cows))
+    print(cowsay.cowsay(format_string.format(bulls, cows), 
+                        cow=choice(cowsay.list_cows())))
 
 def bullscows(guess: str, secret: str) -> Tuple[int, int]:
     guess_set = set(guess)
