@@ -1,26 +1,20 @@
 from typing import Tuple
-from random import randrange, choice
+from random import randrange
+import sys
 import urllib.request
 import os.path
 import argparse
-import cowsay
-from io import StringIO
 
 
 def ask(prompt: str, valid: list[str] = None) -> str:
-    print(cowsay.cowsay(prompt, 
-                        cowfile=cow))
-    word = input()
+    word = input(prompt)
     if (valid):
         while (word not in valid):
-            print(cowsay.cowsay(prompt, 
-                                cowfile=cow))
-            word = input()
+            word = input(prompt)
     return word
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(cowsay.cowsay(format_string.format(bulls, cows), 
-                        cow=choice(cowsay.list_cows())))
+    print(format_string.format(bulls, cows))
 
 def bullscows(guess: str, secret: str) -> Tuple[int, int]:
     guess_set = set(guess)
@@ -59,25 +53,6 @@ parser.add_argument('len',
                     help='Indicates the length of the words used.',
                     nargs='?')
 
-
-cow = cowsay.read_dot_cow(StringIO("""
-$the_cow = <<EOC;
-         $thoughts
-          $thoughts
-           .-. \_/ .-.
-           \.-\/=\/.-/
-        '-./___|=|___\.-'
-       .--| \|/`"`\|/ |--.
-      (((_)\  .---.  /(_)))
-       `\ \_`-.   .-'_/ /`_
-         '.__       __.'(_))
-             /     \     //
-            |       |__.'/
-            \       /--'`
-        .--,-' .--. '----.
-       '----`--'  '--`----'
-EOC
-"""))
 
 if __name__ == '__main__':
     args = parser.parse_args()
