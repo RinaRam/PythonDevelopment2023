@@ -19,7 +19,12 @@ async def chat(reader, writer):
                 if (len(msg) < 1):
                     continue
                 elif (msg[0] == 'who'):
-                    writer.write(f"Registered users: {', '.join(clients.keys)}\n".encode())
+                    keys = ""
+                    if len(clients) > 1:
+                        for key, val in clients.items():
+                            if (key != ""):
+                                keys += key + ', '
+                    writer.write(f"Registered users: {keys[:-2]}\n".encode())
                     await writer.drain()
                 elif (msg[0] == 'cows'):
                     writer.write(f"Free cow names: {', '.join(free_cows_names)}\n".encode())
